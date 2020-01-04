@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='game2048'
+rootProject.name='g2048'

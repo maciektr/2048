@@ -1,4 +1,4 @@
-package com.example.game2048;
+package com.example.g2048;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.game2048", appContext.getPackageName());
+        assertEquals("com.example.g2048", appContext.getPackageName());
     }
 }
