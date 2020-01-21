@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1"
-            android:background="#003333" />
+            android:background="#1b1b1b" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.8"
-            android:background="#424242">
+            android:background="#1b1b1b">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#ffff00"
+                        android:background="#6d6d6d"
                         android:orientation="vertical"
                         >
 
@@ -123,8 +123,7 @@
 
                                 <TextView
                                     android:id="@+id/cell7"
-                                    style="@style/cell"
-                                    android:background="#FF8F00"/>
+                                    style="@style/cell"/>
 
                                 <TextView
                                     android:id="@+id/cell8"
@@ -150,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1"
-            android:background="#003333" />
+            android:background="#1b1b1b" />
 
     </LinearLayout>
 
