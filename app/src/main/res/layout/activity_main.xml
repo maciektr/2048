@@ -11,14 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:background="#ffa500"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#0000ff"
-            android:layout_weight="0.9">
+            android:layout_weight="0.1"
+            android:background="#003333" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:background="#424242">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,71 +38,103 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.8"
-
-                    android:background="#ffff00">
+                    android:layout_weight="0.8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"
+                        android:background="#ffff00"
+                        android:orientation="vertical"
+                        >
 
-                        <LinearLayout
-                            style="@style/row"
-                            android:background="#00FF00">
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.3">
                             <TextView
-                                android:id="@+id/cell1"
-                                style="@style/cell"
-                                android:text="2" />
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:textSize="20pt"
+                                android:text="Wynik:"/>
 
-                            <TextView
-                                android:id="@+id/cell2"
-                                style="@style/cell"
-                                android:text="4" />
+                        </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/cell3"
-                                style="@style/cell"
-                                android:text="16" />
-                        </LinearLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.2">
 
-                        <LinearLayout
-                            style="@style/row"
-                            android:background="#FF0000">
+                            <LinearLayout
+                                style="@style/row"
+                                android:background="#00FF00">
 
-                            <TextView
-                                android:id="@+id/cell4"
-                                style="@style/cell"
-                                android:text="254" />
+                                <TextView
+                                    android:id="@+id/cell1"
+                                    style="@style/cell"
+                                    android:text="2" />
 
-                            <TextView
-                                android:id="@+id/cell5"
-                                style="@style/cell"
-                                android:text="2048" />
+                                <TextView
+                                    android:id="@+id/cell2"
+                                    style="@style/cell"
+                                    android:text="4" />
 
-                            <TextView
-                                android:id="@+id/cell6"
-                                style="@style/cell"
-                                android:text="1024" />
-                        </LinearLayout>
+                                <TextView
+                                    android:id="@+id/cell3"
+                                    style="@style/cell"
+                                    android:text="16" />
+                            </LinearLayout>
+                        </RelativeLayout>
 
-                        <LinearLayout
-                            style="@style/row"
-                            android:background="#FF8F00">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.2">
 
-                            <TextView
-                                android:id="@+id/cell7"
-                                style="@style/cell" />
+                            <LinearLayout
+                                style="@style/row"
+                                android:background="#FF0000">
 
-                            <TextView
-                                android:id="@+id/cell8"
-                                style="@style/cell" />
+                                <TextView
+                                    android:id="@+id/cell4"
+                                    style="@style/cell"
+                                    android:text="254" />
 
-                            <TextView
-                                android:id="@+id/cell9"
-                                style="@style/cell" />
-                        </LinearLayout>
+                                <TextView
+                                    android:id="@+id/cell5"
+                                    style="@style/cell"
+                                    android:text="2048" />
+
+                                <TextView
+                                    android:id="@+id/cell6"
+                                    style="@style/cell"
+                                    android:text="1024" />
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.2">
+
+                            <LinearLayout
+                                style="@style/row">
+
+                                <TextView
+                                    android:id="@+id/cell7"
+                                    style="@style/cell"
+                                    android:background="#FF8F00"/>
+
+                                <TextView
+                                    android:id="@+id/cell8"
+                                    style="@style/cell" />
+
+                                <TextView
+                                    android:id="@+id/cell9"
+                                    style="@style/cell" />
+                            </LinearLayout>
+                        </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -112,8 +149,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#003333"
-            android:layout_weight="0.1" />
+            android:layout_weight="0.1"
+            android:background="#003333" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
