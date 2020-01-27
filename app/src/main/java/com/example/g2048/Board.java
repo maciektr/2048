@@ -10,8 +10,8 @@ public class Board {
     private int height = 0;
 
     public Board(int width, int height) {
-        if(width*height < 4 || width <= 1 || height <= 1){
-            throw new IllegalArgumentException("Board size too small! " + width + "x"+height);
+        if (width * height < 4 || width <= 1 || height <= 1) {
+            throw new IllegalArgumentException("Board size too small! " + width + "x" + height);
         }
 
         this.board = new int[width][height];
@@ -21,26 +21,31 @@ public class Board {
         this.placeRandomLowest();
     }
 
-    private void place(Vector2d pos, int value){
+    public void setCellValue(Vector2d pos, int value) {
         this.board[pos.x][pos.y] = value;
     }
 
-    public void placeRandomLowest(){
+    public void setCellValue(int x, int y, int value) {
+        this.board[x][y] = value;
+    }
+
+    public void placeRandomLowest() {
         Vector2d pos;
-        do{
+        do {
             pos = this.randomPos();
-        }while(this.getCellValue(pos)!=0);
-        this.place(pos,this.lowest);
+        } while (this.getCellValue(pos) != 0);
+        this.setCellValue(pos, this.lowest);
     }
 
     private Vector2d randomPos() {
         return new Vector2d(this.rand.nextInt(this.width), this.rand.nextInt(this.height));
     }
 
-    public int getCellValue(int x, int y){
+    public int getCellValue(int x, int y) {
         return this.board[x][y];
     }
-    public int getCellValue(Vector2d pos){
+
+    public int getCellValue(Vector2d pos) {
         return this.board[pos.x][pos.y];
     }
 
