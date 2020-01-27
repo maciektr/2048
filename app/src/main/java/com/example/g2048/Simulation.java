@@ -25,7 +25,7 @@ public class Simulation {
     private void refreshVisualisation(){
         for (int i = 0; i < width; i++)
             for (int k = 0; k < height; k++) {
-                this.visualisation[i][k] = (TextView) this.activity.findViewById(this.activity.getResources().getIdentifier("cell" + Integer.toString(i * width + k +1), "id", this.activity.getPackageName()));
+                this.visualisation[i][k] = (TextView) this.activity.findViewById(this.activity.getResources().getIdentifier("cell" + Integer.toString(k * width + i +1), "id", this.activity.getPackageName()));
                 if(this.visualisation[i][k] == null)
                     throw new IllegalArgumentException("There is no such TextView cell defined "+i+", "+k);
                 if(this.board.getCellValue(i,k) > 0)
@@ -47,6 +47,7 @@ public class Simulation {
             case RIGHT:
                 break;
         }
+        this.board.placeRandomLowest();
         this.refreshVisualisation();
     }
 }

@@ -3,7 +3,7 @@ package com.example.g2048;
 import java.util.Random;
 
 public class Board {
-
+    private final int lowest = 2;
     private final Random rand = new Random();
     private int[][] board;
     private int width = 0;
@@ -17,17 +17,20 @@ public class Board {
         this.board = new int[width][height];
         this.width = width;
         this.height = height;
-        Vector2d rPos = this.randomPos();
-        this.place(rPos,2);
-        Vector2d nPos;
-        do{
-            nPos = this.randomPos();
-        }while(rPos.equals(nPos));
-        this.place(nPos,2);
+        this.placeRandomLowest();
+        this.placeRandomLowest();
     }
 
     private void place(Vector2d pos, int value){
         this.board[pos.x][pos.y] = value;
+    }
+
+    public void placeRandomLowest(){
+        Vector2d pos;
+        do{
+            pos = this.randomPos();
+        }while(this.getCellValue(pos)!=0);
+        this.place(pos,this.lowest);
     }
 
     private Vector2d randomPos() {
