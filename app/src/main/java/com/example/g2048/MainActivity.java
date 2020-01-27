@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
+import com.example.g2048.Direction;
 
 public class MainActivity extends AppCompatActivity {
 
     private View mContentView;
+    private Simulation simulation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,22 +23,22 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
-
         mContentView = findViewById(R.id.fullscreen_content);
-        mContentView.setOnTouchListener(new com.example.game2048.OnSwipeTouchListener(MainActivity.this) {
+        this.simulation = new Simulation(this);
+
+        mContentView.setOnTouchListener(new com.example.g2048.OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
-                Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
+                simulation.registerMove(Direction.UP);
             }
             public void onSwipeRight() {
-                Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+                simulation.registerMove(Direction.RIGHT);
             }
             public void onSwipeLeft() {
-                Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
+                simulation.registerMove(Direction.LEFT);
             }
             public void onSwipeBottom() {
-                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+                simulation.registerMove(Direction.DOWN);
             }
-
         });
 
     }
