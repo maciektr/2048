@@ -52,7 +52,7 @@ public class Simulation {
                 countInAxis++;
         }
 
-        int k = (reversed ? this.height-1: 0);
+        int k = (reversed ? this.height - 1 : 0);
         while ((reversed && k >= 0) || (!reversed && k < this.height)) {
 
             if (this.board.getCellValue(index, k) > 0)
@@ -61,18 +61,18 @@ public class Simulation {
                 this.changed = true;
 
             this.board.setCellValue(index, k, 0);
-            k += (reversed ? -1:1);
+            k += (reversed ? -1 : 1);
         }
         return queue;
     }
 
-    private void setAxis(LinkedList<Integer> queue, int index, boolean reversed){
-        if(queue.size() > 4)
-             throw new IllegalArgumentException("There is too many objects in the queue " + queue.size());
-        if(queue.size() == 0)
+    private void setAxis(LinkedList<Integer> queue, int index, boolean reversed) {
+        if (queue.size() > 4)
+            throw new IllegalArgumentException("There is too many objects in the queue " + queue.size());
+        if (queue.size() == 0)
             return;
 
-        int k = (reversed ? this.height -1 : 0);
+        int k = (reversed ? this.height - 1 : 0);
         this.board.setCellValue(index, k, queue.poll());
 
         while (!queue.isEmpty()) {
@@ -80,35 +80,41 @@ public class Simulation {
             if (this.board.getCellValue(index, k) == m) {
                 this.board.setCellValue(index, k, m * 2);
                 changed = true;
-                k += (reversed ? -1:1);
-            }else{
-                k += (reversed ? -1:1);
+                k += (reversed ? -1 : 1);
+            } else {
+                if(this.board.getCellValue(index,k) != 0)
+                    k += (reversed ? -1 : 1);
                 this.board.setCellValue(index, k, m);
             }
         }
     }
 
-    private void setAll(boolean vertical, boolean reversed){
-        for(int i = 0;  i<this.width; i++){
-            LinkedList<Integer> queue = this.getAllInAxis(i, vertical, reversed);
-            if (queue.isEmpty())
-                continue;
-            this.setAxis(queue,i,reversed);
-        }
+    private void setAll(int index, boolean vertical, boolean reversed) {
+        LinkedList<Integer> queue = this.getAllInAxis(index, vertical, reversed);
+        if (queue.isEmpty())
+            return;
+        this.setAxis(queue, index, reversed);
     }
 
     public void registerMove(Direction direction) {
         this.changed = false;
         switch (direction) {
             case UP:
-                this.setAll(true, false);
+                for (int i = 0; i < this.width; i++)
+                    this.setAll(i,true, false);
                 break;
             case DOWN:
-                this.setAll(true, true);
-            case LEFT:
-                break;
+                for (int i = 0; i < this.width; i++)
+                    this.setAll(i,true, true);
             case RIGHT:
+//                for (int i = 0; i < this.height; i++)
+//                    this.setAll(i,false, false);
                 break;
+            case LEFT:
+//                for (int i = 0; i < this.height; i++)
+//                    this.setAll(i,false, true);
+                break;
+
         }
         if (changed)
             this.board.placeRandomLowest();
