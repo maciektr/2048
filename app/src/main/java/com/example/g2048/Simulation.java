@@ -2,15 +2,11 @@ package com.example.g2048;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class Simulation {
     private final int width = 4;
@@ -20,7 +16,11 @@ public class Simulation {
     private TextView[][] visualisation;
     private Activity activity;
     private int result = 0;
+    private int record = 0;
     private TextView resultView;
+    private TextView recordView;
+    private SharedPreferences preferences;
+
 
     public Simulation(Context context) {
         this.board = new Board(width, height);
@@ -30,8 +30,21 @@ public class Simulation {
             for (int k = 0; k < height; k++)
                 this.visualisation[i][k] = (TextView) this.activity.findViewById(this.activity.getResources().getIdentifier("cell" + Integer.toString(k * width + i + 1), "id", this.activity.getPackageName()));
         this.resultView = (TextView) this.activity.findViewById(R.id.result);
-        this.refreshVisualisation();
 
+        this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.record = this.preferences.getInt("highest_score", 0);
+        this.recordView = (TextView) this.activity.findViewById(R.id.highest_score);
+
+        this.refreshVisualisation();
+    }
+
+    private void updateRecord(int newRec) {
+        if (newRec > this.record) {
+            this.record = newRec;
+            SharedPreferences.Editor editor = this.preferences.edit();
+            editor.putInt("highest_score", this.record);
+            editor.apply();
+        }
     }
 
     private void refreshVisualisation() {
@@ -45,7 +58,9 @@ public class Simulation {
                 else
                     this.visualisation[i][k].setText(" ");
             }
-        this.resultView.setText("Wynik: "+Integer.toString(this.result));
+        this.resultView.setText("Wynik:\n" + Integer.toString(this.result));
+        this.updateRecord(this.result);
+        this.recordView.setText("Rekord:\n" + Integer.toString(this.record));
     }
 
     private boolean changed = false;
@@ -90,7 +105,7 @@ public class Simulation {
                 m = queue.poll();
             if (this.board.getCellValue(index, k) == m) {
                 this.board.setCellValue(index, k, m * 2);
-                this.result+=m*2;
+                this.result += m * 2;
                 changed = true;
                 k += (reversed ? -1 : 1);
             } else {
@@ -137,7 +152,7 @@ public class Simulation {
             int m = queue.poll();
             if (this.board.getCellValue(k, index) == m) {
                 this.board.setCellValue(k, index, m * 2);
-                this.result+=m*2;
+                this.result += m * 2;
                 changed = true;
                 k += (reversed ? -1 : 1);
             } else {

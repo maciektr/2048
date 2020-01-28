@@ -52,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
                 setSimulation();
             }
         });
+    }
 
+    @Override
+    public void onPause(){
+        super.onPause();
 
     }
 }

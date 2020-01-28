@@ -28,7 +28,7 @@
 
     <style name="button">
         <item name="android:gravity">center</item>
-        <item name="android:textSize">15pt</item>
+        <item name="android:textSize">13pt</item>
         <item name="android:background">@drawable/back</item>
     </style>
 
