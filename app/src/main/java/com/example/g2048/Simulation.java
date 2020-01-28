@@ -5,6 +5,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -17,16 +19,19 @@ public class Simulation {
     private Board board;
     private TextView[][] visualisation;
     private Activity activity;
+    private int result = 0;
+    private TextView resultView;
 
     public Simulation(Context context) {
         this.board = new Board(width, height);
         this.activity = (Activity) context;
         this.visualisation = new TextView[width][height];
-//        TextView cell1 = (TextView)findViewById(R.id.cell1);
         for (int i = 0; i < width; i++)
             for (int k = 0; k < height; k++)
                 this.visualisation[i][k] = (TextView) this.activity.findViewById(this.activity.getResources().getIdentifier("cell" + Integer.toString(k * width + i + 1), "id", this.activity.getPackageName()));
+        this.resultView = (TextView) this.activity.findViewById(R.id.result);
         this.refreshVisualisation();
+
     }
 
     private void refreshVisualisation() {
@@ -40,11 +45,12 @@ public class Simulation {
                 else
                     this.visualisation[i][k].setText(" ");
             }
+        this.resultView.setText("Wynik: "+Integer.toString(this.result));
     }
 
     private boolean changed = false;
 
-    private LinkedList<Integer> getAllInAxis(int index, boolean reversed) {
+    private LinkedList<Integer> getAllInAxis(int index) {
         LinkedList<Integer> queue = new LinkedList<Integer>();
 
         int countInAxis = 0;
@@ -60,14 +66,6 @@ public class Simulation {
                 this.changed = true;
             this.board.setCellValue(index, k, 0);
         }
-
-        if (reversed) {
-            Stack<Integer> stack = new Stack<Integer>();
-            while (!queue.isEmpty())
-                stack.push(queue.poll());
-            while (!stack.isEmpty())
-                queue.add(stack.pop());
-        }
         return queue;
     }
 
@@ -78,12 +76,21 @@ public class Simulation {
             return;
 
         int k = (reversed ? this.height - 1 : 0);
-        this.board.setCellValue(index, k, queue.poll());
+        int m;
+        if (reversed)
+            m = queue.removeLast();
+        else
+            m = queue.poll();
+        this.board.setCellValue(index, k, m);
 
         while (!queue.isEmpty()) {
-            int m = queue.poll();
+            if (reversed)
+                m = queue.removeLast();
+            else
+                m = queue.poll();
             if (this.board.getCellValue(index, k) == m) {
                 this.board.setCellValue(index, k, m * 2);
+                this.result+=m*2;
                 changed = true;
                 k += (reversed ? -1 : 1);
             } else {
@@ -130,6 +137,7 @@ public class Simulation {
             int m = queue.poll();
             if (this.board.getCellValue(k, index) == m) {
                 this.board.setCellValue(k, index, m * 2);
+                this.result+=m*2;
                 changed = true;
                 k += (reversed ? -1 : 1);
             } else {
@@ -145,7 +153,7 @@ public class Simulation {
         switch (direction) {
             case UP:
                 for (int i = 0; i < this.width; i++) {
-                    LinkedList<Integer> queue = this.getAllInAxis(i, false);
+                    LinkedList<Integer> queue = this.getAllInAxis(i);
                     if (queue.isEmpty())
                         continue;
                     this.setAxis(queue, i, false);
@@ -153,7 +161,7 @@ public class Simulation {
                 break;
             case DOWN:
                 for (int i = 0; i < this.width; i++) {
-                    LinkedList<Integer> queue = this.getAllInAxis(i, true);
+                    LinkedList<Integer> queue = this.getAllInAxis(i);
                     if (queue.isEmpty())
                         continue;
                     this.setAxis(queue, i, true);

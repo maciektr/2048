@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.g2048.Direction;
@@ -14,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
 
     private View mContentView;
     private Simulation simulation;
+
+    private void setSimulation(){
+        this.simulation = new Simulation(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         mContentView = findViewById(R.id.fullscreen_content);
-        this.simulation = new Simulation(this);
+        this.setSimulation();
 
         mContentView.setOnTouchListener(new com.example.g2048.OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
@@ -40,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
                 simulation.registerMove(Direction.DOWN);
             }
         });
+
+        Button reset_button = (Button)findViewById(R.id.reset_button);
+        reset_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setSimulation();
+            }
+        });
+
 
     }
 }

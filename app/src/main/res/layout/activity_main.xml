@@ -49,7 +49,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="0.3">
+                            android:layout_weight="0.2">
 
                             <TextView
                                 android:id="@+id/result"
@@ -57,7 +57,7 @@
                                 android:layout_height="match_parent"
                                 android:background="@drawable/back"
                                 android:gravity="center"
-                                android:text="Wynik:"
+                                android:text="Wynik: 0"
                                 android:textSize="20pt" />
 
                         </RelativeLayout>
@@ -162,6 +162,20 @@
                                     android:id="@+id/cell16"
                                     style="@style/cell" />
                             </LinearLayout>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.15">
+
+                            <Button
+                                android:id="@+id/reset_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                style="@style/button"
+                                android:text="Reset">
+
+                            </Button>
                         </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>
