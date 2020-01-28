@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -15,15 +16,17 @@ public class Simulation {
     private Board board;
     private TextView[][] visualisation;
     private Activity activity;
-    private int result = 0;
-    private int record = 0;
+//    private int result = 0;
+    private int record;
     private TextView resultView;
     private TextView recordView;
     private SharedPreferences preferences;
-
+    private Board lastBoard;
+    private boolean undoLegal = false;
 
     public Simulation(Context context) {
         this.board = new Board(width, height);
+        this.lastBoard = new Board(this.board);
         this.activity = (Activity) context;
         this.visualisation = new TextView[width][height];
         for (int i = 0; i < width; i++)
@@ -58,8 +61,8 @@ public class Simulation {
                 else
                     this.visualisation[i][k].setText(" ");
             }
-        this.resultView.setText("Wynik:\n" + Integer.toString(this.result));
-        this.updateRecord(this.result);
+        this.resultView.setText("Wynik:\n" + Integer.toString(this.board.getResult()));
+        this.updateRecord(this.board.getResult());
         this.recordView.setText("Rekord:\n" + Integer.toString(this.record));
     }
 
@@ -105,7 +108,7 @@ public class Simulation {
                 m = queue.poll();
             if (this.board.getCellValue(index, k) == m) {
                 this.board.setCellValue(index, k, m * 2);
-                this.result += m * 2;
+                this.board.updateResult(m * 2);
                 changed = true;
                 k += (reversed ? -1 : 1);
             } else {
@@ -152,7 +155,7 @@ public class Simulation {
             int m = queue.poll();
             if (this.board.getCellValue(k, index) == m) {
                 this.board.setCellValue(k, index, m * 2);
-                this.result += m * 2;
+                this.board.updateResult(m * 2);
                 changed = true;
                 k += (reversed ? -1 : 1);
             } else {
@@ -165,6 +168,7 @@ public class Simulation {
 
     public void registerMove(Direction direction) {
         this.changed = false;
+        Board boardBefore = new Board(this.board);
         switch (direction) {
             case UP:
                 for (int i = 0; i < this.width; i++) {
@@ -199,8 +203,19 @@ public class Simulation {
                 }
                 break;
         }
-        if (changed)
+        if (changed) {
             this.board.placeRandomLowest();
+            this.lastBoard = boardBefore;
+            this.undoLegal = true;
+        }
+        this.refreshVisualisation();
+    }
+
+    public void undo(){
+        if(!this.undoLegal)
+            return;
+        this.board = this.lastBoard;
+        this.undoLegal = false;
         this.refreshVisualisation();
     }
 }

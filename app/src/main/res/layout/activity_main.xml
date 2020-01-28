@@ -68,6 +68,7 @@
                                         android:gravity="center"
                                         android:textSize="15pt" />
                                 </RelativeLayout>
+
                                 <RelativeLayout
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -193,14 +194,36 @@
                             android:layout_height="0dp"
                             android:layout_weight="0.15">
 
-                            <Button
-                                android:id="@+id/reset_button"
-                                style="@style/button"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Reset">
+                                android:orientation="horizontal">
 
-                            </Button>
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5">
+
+                                    <Button
+                                        android:id="@+id/reset_button"
+                                        style="@style/button"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="Reset"/>
+                                </RelativeLayout>
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5">
+
+                                    <Button
+                                        android:id="@+id/undo_button"
+                                        style="@style/button"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="Cofnij"/>
+                                </RelativeLayout>
+                            </LinearLayout>
                         </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>

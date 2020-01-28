@@ -52,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
                 setSimulation();
             }
         });
+
+        Button undo_button = (Button)findViewById(R.id.undo_button);
+        undo_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                simulation.undo();
+            }
+        });
     }
 
     @Override
