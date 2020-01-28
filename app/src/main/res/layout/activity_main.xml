@@ -33,7 +33,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
+                    android:layout_weight="0.05" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -90,102 +90,117 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="0.2">
+                            android:layout_weight="0.7">
 
-                            <LinearLayout style="@style/row">
+                            <LinearLayout
+                                android:id="@+id/boardLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#ffffff"
+                                android:orientation="vertical">
+<!--
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.2">
 
-                                <TextView
-                                    android:id="@+id/cell1"
-                                    style="@style/cell" />
+                                    <LinearLayout style="@style/row">
 
-                                <TextView
-                                    android:id="@+id/cell2"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell1"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell3"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell2"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell4"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell3"
+                                            style="@style/cell" />
 
-                            </LinearLayout>
-                        </RelativeLayout>
+                                        <TextView
+                                            android:id="@+id/cell4"
+                                            style="@style/cell" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.2">
+                                    </LinearLayout>
+                                </RelativeLayout>
 
-                            <LinearLayout style="@style/row">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.2">
+
+                                    <LinearLayout style="@style/row">
 
 
-                                <TextView
-                                    android:id="@+id/cell5"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell5"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell6"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell6"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell7"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell7"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell8"
-                                    style="@style/cell" />
-                            </LinearLayout>
-                        </RelativeLayout>
+                                        <TextView
+                                            android:id="@+id/cell8"
+                                            style="@style/cell" />
+                                    </LinearLayout>
+                                </RelativeLayout>
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.2">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.2">
 
-                            <LinearLayout style="@style/row">
+                                    <LinearLayout style="@style/row">
 
-                                <TextView
-                                    android:id="@+id/cell9"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell9"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell10"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell10"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell11"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell11"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell12"
-                                    style="@style/cell" />
-                            </LinearLayout>
-                        </RelativeLayout>
+                                        <TextView
+                                            android:id="@+id/cell12"
+                                            style="@style/cell" />
+                                    </LinearLayout>
+                                </RelativeLayout>
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.2">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.2">
 
-                            <LinearLayout style="@style/row">
+                                    <LinearLayout style="@style/row">
 
-                                <TextView
-                                    android:id="@+id/cell13"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell13"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell14"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell14"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell15"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell15"
+                                            style="@style/cell" />
 
-                                <TextView
-                                    android:id="@+id/cell16"
-                                    style="@style/cell" />
+                                        <TextView
+                                            android:id="@+id/cell16"
+                                            style="@style/cell" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+-->
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -209,8 +224,9 @@
                                         style="@style/button"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:text="Reset"/>
+                                        android:text="Reset" />
                                 </RelativeLayout>
+
                                 <RelativeLayout
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -221,17 +237,70 @@
                                         style="@style/button"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:text="Cofnij"/>
+                                        android:text="Cofnij" />
                                 </RelativeLayout>
                             </LinearLayout>
                         </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.15">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.2">
+
+                                    <Button
+                                        android:id="@+id/type_left"
+                                        style="@style/button"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="&lt;" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.6">
+
+                                    <TextView
+                                        android:id="@+id/type"
+                                        style="@style/cell"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="4x4" />
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.2">
+
+                                    <Button
+                                        android:id="@+id/type_right"
+                                        style="@style/button"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="&gt;" />
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </RelativeLayout>
+
                     </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
+                    android:layout_weight="0.05" />
             </LinearLayout>
 
         </RelativeLayout>
