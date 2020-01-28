@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.LinkedList;
 
 public class Simulation {
-    private final int width;
-    private final int height;
+    private final int width = 4;
+    private final int height = 4;
 
     private Board board;
     private TextView[][] visualisation;
@@ -28,10 +28,7 @@ public class Simulation {
     private final Drawable darkCellColor;
     private final Drawable brightCellColor;
 
-    public Simulation(Context context, GameType type) {
-        this.width = type.getWidth();
-        this.height = type.getHeight();
-
+    public Simulation(Context context) {
         this.board = new Board(width, height);
         this.lastBoard = new Board(this.board);
         this.activity = (Activity) context;
@@ -41,7 +38,7 @@ public class Simulation {
         this.visualisation = new TextView[width][height];
         for (int i = 0; i < width; i++)
             for (int k = 0; k < height; k++)
-                this.visualisation[i][k] = (TextView) this.activity.findViewById(this.activity.getResources().getIdentifier(Integer.toString(k * width + i + 1), "id", this.activity.getPackageName()));
+                this.visualisation[i][k] = (TextView) this.activity.findViewById(this.activity.getResources().getIdentifier("cell" + Integer.toString(k * width + i + 1), "id", this.activity.getPackageName()));
         this.resultView = (TextView) this.activity.findViewById(R.id.result);
 
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
