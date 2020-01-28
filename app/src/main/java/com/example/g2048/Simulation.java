@@ -3,6 +3,7 @@ package com.example.g2048;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.TextView;
@@ -24,10 +25,16 @@ public class Simulation {
     private Board lastBoard;
     private boolean undoLegal = false;
 
+    private final Drawable darkCellColor;
+    private final Drawable brightCellColor;
+
     public Simulation(Context context) {
         this.board = new Board(width, height);
         this.lastBoard = new Board(this.board);
         this.activity = (Activity) context;
+        this.brightCellColor = this.activity.getResources().getDrawable(R.drawable.back_bright);
+        this.darkCellColor = this.activity.getResources().getDrawable(R.drawable.back_dark);
+
         this.visualisation = new TextView[width][height];
         for (int i = 0; i < width; i++)
             for (int k = 0; k < height; k++)
@@ -56,10 +63,13 @@ public class Simulation {
 //                this.visualisation[i][k] = (TextView) this.activity.findViewById(this.activity.getResources().getIdentifier("cell" + Integer.toString(k * width + i + 1), "id", this.activity.getPackageName()));
                 if (this.visualisation[i][k] == null)
                     throw new IllegalArgumentException("There is no such TextView cell defined " + i + ", " + k);
-                if (this.board.getCellValue(i, k) > 0)
+                if (this.board.getCellValue(i, k) > 0) {
                     this.visualisation[i][k].setText(Integer.toString(this.board.getCellValue(i, k)));
-                else
+                    this.visualisation[i][k].setBackground(this.brightCellColor);
+                }else {
                     this.visualisation[i][k].setText(" ");
+                    this.visualisation[i][k].setBackground(this.darkCellColor);
+                }
             }
         this.resultView.setText("Wynik:\n" + Integer.toString(this.board.getResult()));
         this.updateRecord(this.board.getResult());
