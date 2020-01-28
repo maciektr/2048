@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Simulation {
@@ -43,7 +44,7 @@ public class Simulation {
 
     private boolean changed = false;
 
-    private LinkedList<Integer> getAllInAxis(int index, boolean vertical, boolean reversed) {
+    private LinkedList<Integer> getAllInAxis(int index, boolean reversed) {
         LinkedList<Integer> queue = new LinkedList<Integer>();
 
         int countInAxis = 0;
@@ -52,22 +53,26 @@ public class Simulation {
                 countInAxis++;
         }
 
-        int k = (reversed ? this.height - 1 : 0);
-        while ((reversed && k >= 0) || (!reversed && k < this.height)) {
-
+        for (int k = 0; k < this.height; k++) {
             if (this.board.getCellValue(index, k) > 0)
                 queue.add(this.board.getCellValue(index, k));
             else if (countInAxis - queue.size() > 0)
                 this.changed = true;
-
             this.board.setCellValue(index, k, 0);
-            k += (reversed ? -1 : 1);
+        }
+
+        if (reversed) {
+            Stack<Integer> stack = new Stack<Integer>();
+            while (!queue.isEmpty())
+                stack.push(queue.poll());
+            while (!stack.isEmpty())
+                queue.add(stack.pop());
         }
         return queue;
     }
 
     private void setAxis(LinkedList<Integer> queue, int index, boolean reversed) {
-        if (queue.size() > 4)
+        if (queue.size() > this.width)
             throw new IllegalArgumentException("There is too many objects in the queue " + queue.size());
         if (queue.size() == 0)
             return;
@@ -82,39 +87,94 @@ public class Simulation {
                 changed = true;
                 k += (reversed ? -1 : 1);
             } else {
-                if(this.board.getCellValue(index,k) != 0)
+                if (this.board.getCellValue(index, k) != 0)
                     k += (reversed ? -1 : 1);
                 this.board.setCellValue(index, k, m);
             }
         }
     }
 
-    private void setAll(int index, boolean vertical, boolean reversed) {
-        LinkedList<Integer> queue = this.getAllInAxis(index, vertical, reversed);
-        if (queue.isEmpty())
+    private LinkedList<Integer> getAllInAxisHorizontal(int index, boolean reversed) {
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+
+        int countInAxis = 0;
+        for (int k = 0; k < this.width; k++) {
+            if (this.board.getCellValue(k, index) > 0)
+                countInAxis++;
+        }
+
+        int k = (reversed ? this.width - 1 : 0);
+        while ((reversed && k >= 0) || (!reversed && k < this.width)) {
+
+            if (this.board.getCellValue(k, index) > 0)
+                queue.add(this.board.getCellValue(k, index));
+            else if (countInAxis - queue.size() > 0)
+                this.changed = true;
+
+            this.board.setCellValue(k, index, 0);
+            k += (reversed ? -1 : 1);
+        }
+        return queue;
+    }
+
+    private void setAxisHorizontal(LinkedList<Integer> queue, int index, boolean reversed) {
+        if (queue.size() > this.height)
+            throw new IllegalArgumentException("There is too many objects in the queue " + queue.size());
+        if (queue.size() == 0)
             return;
-        this.setAxis(queue, index, reversed);
+
+        int k = (reversed ? this.width - 1 : 0);
+        this.board.setCellValue(k, index, queue.poll());
+
+        while (!queue.isEmpty()) {
+            int m = queue.poll();
+            if (this.board.getCellValue(k, index) == m) {
+                this.board.setCellValue(k, index, m * 2);
+                changed = true;
+                k += (reversed ? -1 : 1);
+            } else {
+                if (this.board.getCellValue(k, index) != 0)
+                    k += (reversed ? -1 : 1);
+                this.board.setCellValue(k, index, m);
+            }
+        }
     }
 
     public void registerMove(Direction direction) {
         this.changed = false;
         switch (direction) {
             case UP:
-                for (int i = 0; i < this.width; i++)
-                    this.setAll(i,true, false);
+                for (int i = 0; i < this.width; i++) {
+                    LinkedList<Integer> queue = this.getAllInAxis(i, false);
+                    if (queue.isEmpty())
+                        continue;
+                    this.setAxis(queue, i, false);
+                }
                 break;
             case DOWN:
-                for (int i = 0; i < this.width; i++)
-                    this.setAll(i,true, true);
+                for (int i = 0; i < this.width; i++) {
+                    LinkedList<Integer> queue = this.getAllInAxis(i, true);
+                    if (queue.isEmpty())
+                        continue;
+                    this.setAxis(queue, i, true);
+                }
+                break;
             case RIGHT:
-//                for (int i = 0; i < this.height; i++)
-//                    this.setAll(i,false, false);
+                for (int i = 0; i < this.height; i++) {
+                    LinkedList<Integer> queue = this.getAllInAxisHorizontal(i, true);
+                    if (queue.isEmpty())
+                        continue;
+                    this.setAxisHorizontal(queue, i, true);
+                }
                 break;
             case LEFT:
-//                for (int i = 0; i < this.height; i++)
-//                    this.setAll(i,false, true);
+                for (int i = 0; i < this.height; i++) {
+                    LinkedList<Integer> queue = this.getAllInAxisHorizontal(i, false);
+                    if (queue.isEmpty())
+                        continue;
+                    this.setAxisHorizontal(queue, i, false);
+                }
                 break;
-
         }
         if (changed)
             this.board.placeRandomLowest();
